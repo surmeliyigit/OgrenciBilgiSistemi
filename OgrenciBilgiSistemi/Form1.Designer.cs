@@ -48,6 +48,7 @@
             btnKayitSil = new Button();
             btnKayitGuncelle = new Button();
             btnBilgileriGoruntule = new Button();
+            btnDersler = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOgrenciler).BeginInit();
             SuspendLayout();
             // 
@@ -145,10 +146,10 @@
             // 
             dgvOgrenciler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOgrenciler.Columns.AddRange(new DataGridViewColumn[] { colAd, colSoyad, colBolum, colSınıf, colNumara });
-            dgvOgrenciler.Location = new Point(415, 41);
+            dgvOgrenciler.Location = new Point(363, 41);
             dgvOgrenciler.Name = "dgvOgrenciler";
             dgvOgrenciler.RowHeadersWidth = 51;
-            dgvOgrenciler.Size = new Size(678, 307);
+            dgvOgrenciler.Size = new Size(681, 216);
             dgvOgrenciler.TabIndex = 12;
             // 
             // colAd
@@ -216,11 +217,22 @@
             btnBilgileriGoruntule.UseVisualStyleBackColor = true;
             btnBilgileriGoruntule.Click += btnBilgileriGoruntule_Click;
             // 
+            // btnDersler
+            // 
+            btnDersler.Location = new Point(911, 358);
+            btnDersler.Name = "btnDersler";
+            btnDersler.Size = new Size(133, 54);
+            btnDersler.TabIndex = 16;
+            btnDersler.Text = "Dersler";
+            btnDersler.UseVisualStyleBackColor = true;
+            btnDersler.Click += btnDersler_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1151, 450);
+            ClientSize = new Size(1114, 454);
+            Controls.Add(btnDersler);
             Controls.Add(btnBilgileriGoruntule);
             Controls.Add(btnKayitGuncelle);
             Controls.Add(btnKayitSil);
@@ -265,5 +277,6 @@
         private Button btnKayitSil;
         private Button btnKayitGuncelle;
         private Button btnBilgileriGoruntule;
+        private Button btnDersler;
     }
 }

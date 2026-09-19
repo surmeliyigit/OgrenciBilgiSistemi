@@ -1,13 +1,18 @@
 ﻿namespace OgrenciBilgiSistemi.Models
 {
-    internal class Ogrenci
+    public class Ogrenci
     {
         string ad;
         string soyad;
         string bolum;
         byte sinif;
         int numara;
-        
+        List<Ders> dersler=new List<Ders>();
+        public List<Ders> Dersler
+        {
+            get {  return dersler; }
+            set { dersler = value; }
+        }
         public string Ad
         {
             get { return ad; }

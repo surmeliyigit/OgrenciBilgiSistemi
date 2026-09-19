@@ -107,7 +107,7 @@ namespace OgrenciBilgiSistemi
                 return;
             }
             DataGridViewRow seciliSatir = dgvOgrenciler.SelectedRows[0];
-            int numara = (int)(seciliSatir.Cells[4].Value??-1);
+            int numara = (int)(seciliSatir.Cells[4].Value ?? -1);
 
             Ogrenci silinecekOgrenci = null;
             foreach (Ogrenci ogrenci in ogrenciler)
@@ -185,7 +185,7 @@ namespace OgrenciBilgiSistemi
             }
             foreach (Ogrenci ogrenci in ogrenciler)
             {
-                if (ogrenci!=guncellenecekOgrenci && guncelNumara==ogrenci.Numara)
+                if (ogrenci != guncellenecekOgrenci && guncelNumara == ogrenci.Numara)
                 {
                     MessageBox.Show("Bu numaraya ait başka bir öğrenci zaten kayıtlı.");
                     return;
@@ -219,7 +219,7 @@ namespace OgrenciBilgiSistemi
             }
 
             DataGridViewRow seciliSatir = dgvOgrenciler.SelectedRows[0];
-            int numara = (int)(seciliSatir.Cells[4].Value??-1);
+            int numara = (int)(seciliSatir.Cells[4].Value ?? -1);
 
             Ogrenci goruntulenecekOgrenci = null;
             foreach (Ogrenci ogrenci in ogrenciler)
@@ -241,6 +241,39 @@ namespace OgrenciBilgiSistemi
             txtBolum.Text = goruntulenecekOgrenci.Bolum;
             txtSinif.Text = goruntulenecekOgrenci.Sinif.ToString();
             txtNumara.Text = goruntulenecekOgrenci.Numara.ToString();
+        }
+
+        private void btnDersler_Click(object sender, EventArgs e)
+        {
+            if (dgvOgrenciler.SelectedRows.Count == 0)
+            {
+                MessageBox.Show("Lütfen derslerini görüntülemek istediğiniz öğrenciyi seçin.");
+                return;
+            }
+
+            DataGridViewRow seciliSatir = dgvOgrenciler.SelectedRows[0];
+
+            int numara = (int)(seciliSatir.Cells[4].Value ?? -1);
+
+            Ogrenci seciliOgrenci = null;
+
+            foreach (Ogrenci ogrenci in ogrenciler)
+            {
+                if (numara == ogrenci.Numara)
+                {
+                    seciliOgrenci = ogrenci;
+                    break;
+                }
+            }
+
+            if (seciliOgrenci == null)
+            {
+                MessageBox.Show("Öğrenci bulunamadı.");
+                return;
+            }
+
+            Form2 form2 = new Form2(seciliOgrenci);
+            form2.Show();
         }
     }
 }
