@@ -40,17 +40,17 @@
             btnDersEkle = new Button();
             btnDersSil = new Button();
             dgvDersler = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
             lblOrtalama = new Label();
             lblGenelOrtalama = new Label();
             txtFinal = new TextBox();
             label2 = new Label();
             txtAkts = new TextBox();
             lblAkts = new Label();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dgvDersler).BeginInit();
             SuspendLayout();
             // 
@@ -68,17 +68,18 @@
             lblOgrenci.AutoSize = true;
             lblOgrenci.Location = new Point(45, 66);
             lblOgrenci.Name = "lblOgrenci";
-            lblOgrenci.Size = new Size(68, 20);
+            lblOgrenci.Size = new Size(95, 20);
             lblOgrenci.TabIndex = 1;
-            lblOgrenci.Text = "Öğrenci :";
+            lblOgrenci.Text = "Öğrenci Adı :";
             // 
             // lblOgrenciAdi
             // 
             lblOgrenciAdi.AutoSize = true;
-            lblOgrenciAdi.Location = new Point(128, 66);
+            lblOgrenciAdi.Location = new Point(146, 66);
             lblOgrenciAdi.Name = "lblOgrenciAdi";
-            lblOgrenciAdi.Size = new Size(0, 20);
+            lblOgrenciAdi.Size = new Size(27, 20);
             lblOgrenciAdi.TabIndex = 2;
+            lblOgrenciAdi.Text = "___";
             // 
             // lblNumara
             // 
@@ -92,10 +93,11 @@
             // lblOgrenciNo
             // 
             lblOgrenciNo.AutoSize = true;
-            lblOgrenciNo.Location = new Point(407, 66);
+            lblOgrenciNo.Location = new Point(399, 64);
             lblOgrenciNo.Name = "lblOgrenciNo";
-            lblOgrenciNo.Size = new Size(0, 20);
+            lblOgrenciNo.Size = new Size(27, 20);
             lblOgrenciNo.TabIndex = 4;
+            lblOgrenciNo.Text = "___";
             // 
             // lblDers
             // 
@@ -147,6 +149,7 @@
             btnDersSil.TabIndex = 11;
             btnDersSil.Text = "Ders Sil";
             btnDersSil.UseVisualStyleBackColor = true;
+            btnDersSil.Click += btnDersSil_Click;
             // 
             // dgvDersler
             // 
@@ -157,55 +160,6 @@
             dgvDersler.RowHeadersWidth = 51;
             dgvDersler.Size = new Size(641, 117);
             dgvDersler.TabIndex = 12;
-            // 
-            // lblOrtalama
-            // 
-            lblOrtalama.AutoSize = true;
-            lblOrtalama.Location = new Point(196, 467);
-            lblOrtalama.Name = "lblOrtalama";
-            lblOrtalama.Size = new Size(78, 20);
-            lblOrtalama.TabIndex = 13;
-            lblOrtalama.Text = "Ortalama :";
-            // 
-            // lblGenelOrtalama
-            // 
-            lblGenelOrtalama.AutoSize = true;
-            lblGenelOrtalama.Location = new Point(282, 467);
-            lblGenelOrtalama.Name = "lblGenelOrtalama";
-            lblGenelOrtalama.Size = new Size(0, 20);
-            lblGenelOrtalama.TabIndex = 14;
-            // 
-            // txtFinal
-            // 
-            txtFinal.Location = new Point(117, 178);
-            txtFinal.Name = "txtFinal";
-            txtFinal.Size = new Size(56, 27);
-            txtFinal.TabIndex = 16;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Location = new Point(40, 181);
-            label2.Name = "label2";
-            label2.Size = new Size(47, 20);
-            label2.TabIndex = 15;
-            label2.Text = "Final :";
-            // 
-            // txtAkts
-            // 
-            txtAkts.Location = new Point(117, 216);
-            txtAkts.Name = "txtAkts";
-            txtAkts.Size = new Size(56, 27);
-            txtAkts.TabIndex = 18;
-            // 
-            // lblAkts
-            // 
-            lblAkts.AutoSize = true;
-            lblAkts.Location = new Point(40, 219);
-            lblAkts.Name = "lblAkts";
-            lblAkts.Size = new Size(78, 20);
-            lblAkts.TabIndex = 17;
-            lblAkts.Text = "Akts girin :";
             // 
             // Column1
             // 
@@ -241,6 +195,56 @@
             Column4.MinimumWidth = 6;
             Column4.Name = "Column4";
             Column4.Width = 125;
+            // 
+            // lblOrtalama
+            // 
+            lblOrtalama.AutoSize = true;
+            lblOrtalama.Location = new Point(196, 467);
+            lblOrtalama.Name = "lblOrtalama";
+            lblOrtalama.Size = new Size(78, 20);
+            lblOrtalama.TabIndex = 13;
+            lblOrtalama.Text = "Ortalama :";
+            // 
+            // lblGenelOrtalama
+            // 
+            lblGenelOrtalama.AutoSize = true;
+            lblGenelOrtalama.Location = new Point(282, 467);
+            lblGenelOrtalama.Name = "lblGenelOrtalama";
+            lblGenelOrtalama.Size = new Size(28, 20);
+            lblGenelOrtalama.TabIndex = 14;
+            lblGenelOrtalama.Text = "0.0";
+            // 
+            // txtFinal
+            // 
+            txtFinal.Location = new Point(117, 178);
+            txtFinal.Name = "txtFinal";
+            txtFinal.Size = new Size(56, 27);
+            txtFinal.TabIndex = 16;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(40, 181);
+            label2.Name = "label2";
+            label2.Size = new Size(47, 20);
+            label2.TabIndex = 15;
+            label2.Text = "Final :";
+            // 
+            // txtAkts
+            // 
+            txtAkts.Location = new Point(117, 216);
+            txtAkts.Name = "txtAkts";
+            txtAkts.Size = new Size(56, 27);
+            txtAkts.TabIndex = 18;
+            // 
+            // lblAkts
+            // 
+            lblAkts.AutoSize = true;
+            lblAkts.Location = new Point(40, 219);
+            lblAkts.Name = "lblAkts";
+            lblAkts.Size = new Size(78, 20);
+            lblAkts.TabIndex = 17;
+            lblAkts.Text = "Akts girin :";
             // 
             // Form2
             // 

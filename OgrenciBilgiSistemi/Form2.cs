@@ -8,6 +8,8 @@ namespace OgrenciBilgiSistemi
         {
             InitializeComponent();
             this.ogrenci = ogrenci;
+            lblOgrenciAdi.Text = ogrenci.Ad.ToString();
+            lblOgrenciNo.Text = ogrenci.Numara.ToString();
         }
 
         private void btnDersEkle_Click(object sender, EventArgs e)
@@ -17,10 +19,10 @@ namespace OgrenciBilgiSistemi
                 MessageBox.Show("Ders adı boş bırakılamaz.");
                 return;
             }
-            bool isVizeTrue = byte.TryParse(txtVize.Text,out byte vize);
-            bool isFinalTrue = byte.TryParse(txtFinal.Text,out byte final);
-            bool isAktsTrue = byte.TryParse(txtAkts.Text,out byte akts);
-            if (!isVizeTrue || vize>100)
+            bool isVizeTrue = byte.TryParse(txtVize.Text, out byte vize);
+            bool isFinalTrue = byte.TryParse(txtFinal.Text, out byte final);
+            bool isAktsTrue = byte.TryParse(txtAkts.Text, out byte akts);
+            if (!isVizeTrue || vize > 100)
             {
                 MessageBox.Show("Vize notu 0-100 arasında olmalıdır.");
                 return;
@@ -38,10 +40,10 @@ namespace OgrenciBilgiSistemi
 
             Ders ders = new Ders();
             ders.DersAdi = txtDers.Text;
-            ders.Vize= vize;
-            ders.Final= final;
+            ders.Vize = vize;
+            ders.Final = final;
             ders.Akts = akts;
-            
+
             if (ogrenci.Dersler.Any(x => x.DersAdi == ders.DersAdi))
             {
                 MessageBox.Show("Aynı isimli bir ders zaten ekli.");
@@ -49,49 +51,92 @@ namespace OgrenciBilgiSistemi
             }
 
             ogrenci.Dersler.Add(ders);
-            dgvDersler.Rows.Clear();
+            DersleriGoster();
 
-            double dersOrtalama = 0;
-            double toplamAgirlikliNot = 0;
-            int toplamAkts = 0;
+            GanoHesapla();
 
-            foreach (Ders dersGez in ogrenci.Dersler)
+        }
+        private void btnDersSil_Click(object sender, EventArgs e)
+        {
+            if (dgvDersler.SelectedRows.Count == 0)
             {
-                dersOrtalama = dersGez.Vize * 0.4 + dersGez.Final * 0.6;
-                toplamAgirlikliNot += DortlukNotHesapla(dersOrtalama)*dersGez.Akts;
-                toplamAkts += dersGez.Akts;
-                dgvDersler.Rows.Add(
-                    dersGez.DersAdi,
-                    dersGez.Vize,
-                    dersGez.Final,
-                    dersGez.Akts,
-                    dersOrtalama
-                );
+                MessageBox.Show("Lütfen silmek istediğiniz dersi seçin.");
+                return;
             }
+            DataGridViewRow seciliSatir = dgvDersler.SelectedRows[0];
+            string dersAdi = seciliSatir.Cells[0].Value.ToString();
+            Ders silinecekDers = null;
 
-            double gano = toplamAgirlikliNot/toplamAkts;
-            lblOgrenciAdi.Text = ogrenci.Ad.ToString();
-            lblOgrenciNo.Text = ogrenci.Numara.ToString();
-            lblGenelOrtalama.Text = gano.ToString("F2");
+            foreach (Ders d in ogrenci.Dersler)
+            {
+                if (d.DersAdi == dersAdi)
+                {
+                    silinecekDers = d;
+                    break;
+                }
+            }
+            if (silinecekDers != null)
+            {
+                ogrenci.Dersler.Remove(silinecekDers);
+            }
+            DersleriGoster();
+            GanoHesapla();
         }
         private double DortlukNotHesapla(double ortalama)
         {
-            double dortlukNot;
-
             if (ortalama >= 88)
-                return dortlukNot = 4.0;
-            else if (ortalama >= 80 && ortalama<=87)
-                return dortlukNot = 3.5;
-            else if (ortalama >= 73 && ortalama<=79)
-                return dortlukNot = 3.0;
-            else if (ortalama >= 66 && ortalama<=72)
-                return dortlukNot = 2.5;
-            else if (ortalama >= 60 && ortalama<=65)
-                return dortlukNot = 2.0;
-            else if (ortalama >= 50 && ortalama<=59)
-                return dortlukNot = 1.5;
+                return 4.0;
+            else if (ortalama >= 80)
+                return 3.5;
+            else if (ortalama >= 73)
+                return 3.0;
+            else if (ortalama >= 66)
+                return 2.5;
+            else if (ortalama >= 60)
+                return 2.0;
+            else if (ortalama >= 50)
+                return 1.5;
             else
-                return dortlukNot = 0.0;
+                return 0.0;
+        }
+        private void GanoHesapla()
+        {
+            double toplamAgirlikliNot = 0;
+            int toplamAkts = 0;
+
+            foreach (Ders d in ogrenci.Dersler)
+            {
+                double dersOrtalama = d.Vize * 0.4 + d.Final * 0.6;
+
+                toplamAgirlikliNot += DortlukNotHesapla(dersOrtalama) * d.Akts;
+                toplamAkts += d.Akts;
+            }
+
+            double gano = 0;
+
+            if (toplamAkts > 0)
+            {
+                gano = toplamAgirlikliNot / toplamAkts;
+            }
+
+            lblGenelOrtalama.Text = gano.ToString("F2");
+        }
+        private void DersleriGoster()
+        {
+            dgvDersler.Rows.Clear();
+
+            foreach (Ders d in ogrenci.Dersler)
+            {
+                double ortalama = d.Vize * 0.4 + d.Final * 0.6;
+
+                dgvDersler.Rows.Add(
+                    d.DersAdi,
+                    d.Vize,
+                    d.Final,
+                    d.Akts,
+                    ortalama
+                );
+            }
         }
     }
 }
