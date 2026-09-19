@@ -45,6 +45,7 @@
             colBolum = new DataGridViewTextBoxColumn();
             colSınıf = new DataGridViewTextBoxColumn();
             colNumara = new DataGridViewTextBoxColumn();
+            btnKayitSil = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOgrenciler).BeginInit();
             SuspendLayout();
             // 
@@ -130,7 +131,7 @@
             // 
             // btnKayitEkle
             // 
-            btnKayitEkle.Location = new Point(201, 294);
+            btnKayitEkle.Location = new Point(33, 293);
             btnKayitEkle.Name = "btnKayitEkle";
             btnKayitEkle.Size = new Size(94, 55);
             btnKayitEkle.TabIndex = 11;
@@ -183,11 +184,22 @@
             colNumara.Name = "colNumara";
             colNumara.Width = 125;
             // 
+            // btnKayitSil
+            // 
+            btnKayitSil.Location = new Point(187, 293);
+            btnKayitSil.Name = "btnKayitSil";
+            btnKayitSil.Size = new Size(94, 55);
+            btnKayitSil.TabIndex = 13;
+            btnKayitSil.Text = "Öğrenci Sil";
+            btnKayitSil.UseVisualStyleBackColor = true;
+            btnKayitSil.Click += btnKayitSil_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(btnKayitSil);
             Controls.Add(dgvOgrenciler);
             Controls.Add(btnKayitEkle);
             Controls.Add(txtBolum);
@@ -226,5 +238,6 @@
         private DataGridViewTextBoxColumn colBolum;
         private DataGridViewTextBoxColumn colSınıf;
         private DataGridViewTextBoxColumn colNumara;
+        private Button btnKayitSil;
     }
 }
