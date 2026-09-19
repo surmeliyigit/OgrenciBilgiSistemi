@@ -46,6 +46,8 @@
             colSınıf = new DataGridViewTextBoxColumn();
             colNumara = new DataGridViewTextBoxColumn();
             btnKayitSil = new Button();
+            btnKayitGuncelle = new Button();
+            btnBilgileriGoruntule = new Button();
             ((System.ComponentModel.ISupportInitialize)dgvOgrenciler).BeginInit();
             SuspendLayout();
             // 
@@ -131,9 +133,9 @@
             // 
             // btnKayitEkle
             // 
-            btnKayitEkle.Location = new Point(33, 293);
+            btnKayitEkle.Location = new Point(24, 294);
             btnKayitEkle.Name = "btnKayitEkle";
-            btnKayitEkle.Size = new Size(94, 55);
+            btnKayitEkle.Size = new Size(133, 54);
             btnKayitEkle.TabIndex = 11;
             btnKayitEkle.Text = "Öğrenci Ekle";
             btnKayitEkle.UseVisualStyleBackColor = true;
@@ -143,10 +145,10 @@
             // 
             dgvOgrenciler.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dgvOgrenciler.Columns.AddRange(new DataGridViewColumn[] { colAd, colSoyad, colBolum, colSınıf, colNumara });
-            dgvOgrenciler.Location = new Point(343, 41);
+            dgvOgrenciler.Location = new Point(415, 41);
             dgvOgrenciler.Name = "dgvOgrenciler";
             dgvOgrenciler.RowHeadersWidth = 51;
-            dgvOgrenciler.Size = new Size(445, 188);
+            dgvOgrenciler.Size = new Size(678, 307);
             dgvOgrenciler.TabIndex = 12;
             // 
             // colAd
@@ -186,19 +188,41 @@
             // 
             // btnKayitSil
             // 
-            btnKayitSil.Location = new Point(187, 293);
+            btnKayitSil.Location = new Point(187, 368);
             btnKayitSil.Name = "btnKayitSil";
-            btnKayitSil.Size = new Size(94, 55);
+            btnKayitSil.Size = new Size(133, 54);
             btnKayitSil.TabIndex = 13;
             btnKayitSil.Text = "Öğrenci Sil";
             btnKayitSil.UseVisualStyleBackColor = true;
             btnKayitSil.Click += btnKayitSil_Click;
             // 
+            // btnKayitGuncelle
+            // 
+            btnKayitGuncelle.Location = new Point(24, 368);
+            btnKayitGuncelle.Name = "btnKayitGuncelle";
+            btnKayitGuncelle.Size = new Size(133, 54);
+            btnKayitGuncelle.TabIndex = 14;
+            btnKayitGuncelle.Text = "Öğrenci Güncelle";
+            btnKayitGuncelle.UseVisualStyleBackColor = true;
+            btnKayitGuncelle.Click += btnKayitGuncelle_Click;
+            // 
+            // btnBilgileriGoruntule
+            // 
+            btnBilgileriGoruntule.Location = new Point(187, 294);
+            btnBilgileriGoruntule.Name = "btnBilgileriGoruntule";
+            btnBilgileriGoruntule.Size = new Size(133, 54);
+            btnBilgileriGoruntule.TabIndex = 15;
+            btnBilgileriGoruntule.Text = "Bilgileri Görüntüle";
+            btnBilgileriGoruntule.UseVisualStyleBackColor = true;
+            btnBilgileriGoruntule.Click += btnBilgileriGoruntule_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1151, 450);
+            Controls.Add(btnBilgileriGoruntule);
+            Controls.Add(btnKayitGuncelle);
             Controls.Add(btnKayitSil);
             Controls.Add(dgvOgrenciler);
             Controls.Add(btnKayitEkle);
@@ -239,5 +263,7 @@
         private DataGridViewTextBoxColumn colSınıf;
         private DataGridViewTextBoxColumn colNumara;
         private Button btnKayitSil;
+        private Button btnKayitGuncelle;
+        private Button btnBilgileriGoruntule;
     }
 }
