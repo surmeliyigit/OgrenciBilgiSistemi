@@ -93,7 +93,7 @@
             // lblOgrenciNo
             // 
             lblOgrenciNo.AutoSize = true;
-            lblOgrenciNo.Location = new Point(399, 64);
+            lblOgrenciNo.Location = new Point(397, 66);
             lblOgrenciNo.Name = "lblOgrenciNo";
             lblOgrenciNo.Size = new Size(27, 20);
             lblOgrenciNo.TabIndex = 4;

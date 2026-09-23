@@ -223,7 +223,7 @@
             btnDersler.Name = "btnDersler";
             btnDersler.Size = new Size(133, 54);
             btnDersler.TabIndex = 16;
-            btnDersler.Text = "Dersler";
+            btnDersler.Text = "Ortalama Hesaplamaya Git";
             btnDersler.UseVisualStyleBackColor = true;
             btnDersler.Click += btnDersler_Click;
             // 

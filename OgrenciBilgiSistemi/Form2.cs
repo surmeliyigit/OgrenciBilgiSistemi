@@ -64,7 +64,7 @@ namespace OgrenciBilgiSistemi
                 return;
             }
             DataGridViewRow seciliSatir = dgvDersler.SelectedRows[0];
-            string dersAdi = seciliSatir.Cells[0].Value.ToString();
+            string dersAdi = (seciliSatir.Cells[0].Value??"").ToString();
             Ders silinecekDers = null;
 
             foreach (Ders d in ogrenci.Dersler)

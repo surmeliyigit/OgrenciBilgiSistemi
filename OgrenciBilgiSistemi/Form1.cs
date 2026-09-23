@@ -3,10 +3,24 @@ namespace OgrenciBilgiSistemi
 {
     public partial class Form1 : Form
     {
+        string logsKlasoru = Path.Combine(AppContext.BaseDirectory, "Logs");
+        string logDosyasi;
         List<Ogrenci> ogrenciler = new List<Ogrenci>();
         public Form1()
         {
             InitializeComponent();
+            Directory.CreateDirectory(logsKlasoru);
+            logDosyasi = Path.Combine(logsKlasoru, "uygulama.txt");
+            Application.ApplicationExit += ProgramKapatildi;//bu duruma tekrardan goz at
+        }
+
+        //log dosyasina yapilan islemleri yazan metod
+        private void LogYaz(string mesaj)
+        {
+            using (StreamWriter streamWriter = File.AppendText(logDosyasi))
+            {
+                streamWriter.WriteLine($"{DateTime.Now} - {mesaj}");
+            }
         }
 
         //if bloklari ile textboxlarin null veya  bos olmasi engellendi
@@ -45,6 +59,24 @@ namespace OgrenciBilgiSistemi
             return false;
         }
 
+        private void OgrencileriEkranaGetir()
+        {
+            foreach (Ogrenci ogr in ogrenciler)
+            {
+                dgvOgrenciler.Rows.Add(
+                ogr.Ad,
+                ogr.Soyad,
+                ogr.Bolum,
+                ogr.Sinif,
+                ogr.Numara
+               );
+            }
+        }
+        private void ProgramKapatildi(object sender, EventArgs e)
+        {
+            LogYaz("Program kapatıldı.");
+        }
+        //Ogrencileri ekleyen buton metodu
         private void btnKayitEkle_Click(object sender, EventArgs e)
         {
             if (AlanlarBosMu())
@@ -79,18 +111,10 @@ namespace OgrenciBilgiSistemi
             }
 
             ogrenciler.Add(ogrenci);
+            LogYaz($"{ogrenci.Ad} {ogrenci.Soyad} adlı öğrenci eklendi. Numara : {ogrenci.Numara}");
             dgvOgrenciler.Rows.Clear();
 
-            foreach (Ogrenci ogr in ogrenciler)
-            {
-                dgvOgrenciler.Rows.Add(
-                ogr.Ad,
-                ogr.Soyad,
-                ogr.Bolum,
-                ogr.Sinif,
-                ogr.Numara
-               );
-            }
+            OgrencileriEkranaGetir();
             txtAd.Clear();
             txtSoyad.Clear();
             txtBolum.Clear();
@@ -98,7 +122,7 @@ namespace OgrenciBilgiSistemi
             txtNumara.Clear();
 
         }
-
+        //Ogrenciyi silen buton metodu
         private void btnKayitSil_Click(object sender, EventArgs e)
         {
             if (dgvOgrenciler.SelectedRows.Count == 0)
@@ -122,22 +146,14 @@ namespace OgrenciBilgiSistemi
             if (silinecekOgrenci != null)
             {
                 ogrenciler.Remove(silinecekOgrenci);
+                LogYaz($"{silinecekOgrenci.Ad} {silinecekOgrenci.Soyad} adlı öğrenci silindi. Numara : {silinecekOgrenci.Numara}");
             }
 
             dgvOgrenciler.Rows.Clear();
 
-            foreach (Ogrenci ogr in ogrenciler)
-            {
-                dgvOgrenciler.Rows.Add(
-                ogr.Ad,
-                ogr.Soyad,
-                ogr.Bolum,
-                ogr.Sinif,
-                ogr.Numara
-               );
-            }
+            OgrencileriEkranaGetir();
         }
-
+        //Ogrencilerin bilgilerinde guncelleme yapmamizi saglayan buton metodu
         private void btnKayitGuncelle_Click(object sender, EventArgs e)
         {
             if (dgvOgrenciler.SelectedRows.Count == 0)
@@ -197,19 +213,14 @@ namespace OgrenciBilgiSistemi
             guncellenecekOgrenci.Bolum = txtBolum.Text;
             guncellenecekOgrenci.Sinif = guncelSinif;
             guncellenecekOgrenci.Numara = guncelNumara;
+
+            LogYaz($"{guncellenecekOgrenci.Ad} {guncellenecekOgrenci.Soyad} adlı öğrenci güncellendi. Numara : {guncellenecekOgrenci.Numara}");
+
             dgvOgrenciler.Rows.Clear();
 
-            foreach (Ogrenci ogr in ogrenciler)
-            {
-                dgvOgrenciler.Rows.Add(
-                    ogr.Ad,
-                    ogr.Soyad,
-                    ogr.Bolum,
-                    ogr.Sinif,
-                    ogr.Numara
-                );
-            }
+            OgrencileriEkranaGetir();
         }
+        //Ogrenci bilgilerini goruntuleyen buton metodu
         private void btnBilgileriGoruntule_Click(object sender, EventArgs e)
         {
             if (dgvOgrenciler.SelectedRows.Count == 0)
@@ -242,7 +253,7 @@ namespace OgrenciBilgiSistemi
             txtSinif.Text = goruntulenecekOgrenci.Sinif.ToString();
             txtNumara.Text = goruntulenecekOgrenci.Numara.ToString();
         }
-
+        //sectigimiz ogrenciye gore Form2 ye gitmemizi saglayan buton metodu
         private void btnDersler_Click(object sender, EventArgs e)
         {
             if (dgvOgrenciler.SelectedRows.Count == 0)
